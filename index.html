@@ -146,8 +146,8 @@
       const answer20 = parseInt(document.getElementById("plus20").value);
       const answer30 = parseInt(document.getElementById("plus30").value);
 
-      const correct20 = randomNumber + 20;
-      const correct30 = randomNumber + 30;
+      const correct20 = (randomNumber + 20) % 60;
+      const correct30 = (randomNumber + 30) % 60;
 
       const diff20 = Math.abs(answer20 - correct20);
       const diff30 = Math.abs(answer30 - correct30);
