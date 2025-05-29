@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Number Quiz</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
+      box-sizing: border-box;
+      background: #f0f0f0;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .number {
+      font-size: 8vw;
+      font-weight: bold;
+    }
+
+    input {
+      font-size: 6vw;
+      padding: 0.5rem;
+      width: 100%;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      font-size: 5vw;
+      padding: 0.7rem 1rem;
+      margin-top: 1rem;
+      width: 100%;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-size: 5vw;
+    }
+
+    .message {
+      font-size: 5vw;
+      color: green;
+      margin-top: 1rem;
+    }
+
+    .congrats {
+      font-size: 6vw;
+      color: #FF5722;
+      margin-top: 1rem;
+      animation: pop 0.6s ease-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    @media (min-width: 768px) {
+      .number {
+        font-size: 3rem;
+      }
+
+      input {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 1.5rem;
+      }
+
+      .result, .message, .congrats {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="question">
+      <div class="number" id="randomNumber">?</div>
+      <input type="number" id="plus20" placeholder="Number + 20">
+      <input type="number" id="plus30" placeholder="Number + 30">
+      <button onclick="checkAnswers()">Check Answers</button>
+    </div>
+    <div id="results" class="result" style="display:none;"></div>
+    <div id="congrats" class="congrats" style="display:none;"></div>
+    <div id="message" class="message" style="display:none;"></div>
+    <button id="restartBtn" onclick="init()" style="display:none;">Start Again</button>
+  </div>
+
+  <script>
+    let randomNumber = 0;
+    const motivationalMessages = [
+      "Great effort! Keep it up!",
+      "You're learning fast!",
+      "Keep going, you're doing great!",
+      "Nice work! Every step counts!",
+      "Fantastic! You're improving!"
+    ];
+
+    const congratsMessages = [
+      "Spot on! Well done! 🎯",
+      "Perfect! You nailed it! 🔥",
+      "Bullseye! Great job! 💯",
+      "Excellent! Right on point! 🎉",
+      "Impressive! That was perfect! 🏆"
+    ];
+
+    function init() {
+      randomNumber = Math.floor(Math.random() * 61);
+      document.getElementById("randomNumber").textContent = randomNumber;
+      document.getElementById("plus20").value = "";
+      document.getElementById("plus30").value = "";
+      document.getElementById("results").style.display = "none";
+      document.getElementById("message").style.display = "none";
+      document.getElementById("congrats").style.display = "none";
+      document.getElementById("restartBtn").style.display = "none";
+      document.getElementById("question").style.display = "block";
+    }
+
+    function checkAnswers() {
+      const answer20 = parseInt(document.getElementById("plus20").value);
+      const answer30 = parseInt(document.getElementById("plus30").value);
+
+      const correct20 = randomNumber + 20;
+      const correct30 = randomNumber + 30;
+
+      const diff20 = Math.abs(answer20 - correct20);
+      const diff30 = Math.abs(answer30 - correct30);
+
+      let congratsText = "";
+      if (diff20 === 0) {
+        congratsText += congratsMessages[Math.floor(Math.random() * congratsMessages.length)] + "<br>";
+      }
+      if (diff30 === 0) {
+        congratsText += congratsMessages[Math.floor(Math.random() * congratsMessages.length)];
+      }
+
+      document.getElementById("results").innerHTML = `Difference for +20: ${diff20}<br>Difference for +30: ${diff30}`;
+      document.getElementById("results").style.display = "block";
+
+      if (congratsText !== "") {
+        document.getElementById("congrats").innerHTML = congratsText;
+        document.getElementById("congrats").style.display = "block";
+      } else {
+        document.getElementById("congrats").style.display = "none";
+      }
+
+      const messageText = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+      document.getElementById("message").innerText = messageText;
+      document.getElementById("message").style.display = "block";
+      document.getElementById("restartBtn").style.display = "block";
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
