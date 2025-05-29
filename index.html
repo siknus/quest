@@ -198,6 +198,7 @@
 
     document.addEventListener('keydown', function(event) {
       if (["Escape","!"].includes(event.key)) {
+        event.preventDefault();
         init();
         formElements[0].focus();
       }
