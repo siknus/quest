@@ -100,8 +100,8 @@
   <div class="container">
     <div id="question">
       <div class="number" id="randomNumber">?</div>
-      <input type="number" id="plus20" placeholder="Number + 20">
-      <input type="number" id="plus30" placeholder="Number + 30">
+      <input type="number" id="plus20" onkeydown="ifEnter(event,'goToNext')" placeholder="Number + 20">
+      <input type="number" id="plus30" onkeydown="ifEnter(event,'checkAnswers')" placeholder="Number + 30">
       <button onclick="checkAnswers()">Check Answers</button>
     </div>
     <div id="results" class="result" style="display:none;"></div>
@@ -127,6 +127,8 @@
       "Excellent! Right on point! 🎉",
       "Impressive! That was perfect! 🏆"
     ];
+
+    const formElements = Array.from(document.querySelectorAll("input, textarea, select"));
 
     function init() {
       randomNumber = Math.floor(Math.random() * 61);
@@ -173,6 +175,33 @@
       document.getElementById("message").style.display = "block";
       document.getElementById("restartBtn").style.display = "block";
     }
+
+    function ifEnter(event, action) {
+
+      if (event.key !== 'Enter') 
+        return;
+
+      event.preventDefault();
+
+      switch (action) {
+        case 'goToNext':
+          const index = formElements.indexOf(event.target);
+          if (index > -1 && index + 1 < formElements.length) {
+            formElements[index + 1].focus();
+          }
+        break;
+        case 'checkAnswers':
+          checkAnswers();
+        break;
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (["Escape","!"].includes(event.key)) {
+        init();
+        formElements[0].focus();
+      }
+    });
 
     window.onload = init;
   </script>
