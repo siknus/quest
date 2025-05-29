@@ -168,12 +168,11 @@
         document.getElementById("congrats").style.display = "block";
       } else {
         document.getElementById("congrats").style.display = "none";
+        const messageText = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+        document.getElementById("message").innerText = messageText;
+        document.getElementById("message").style.display = "block";
+        document.getElementById("restartBtn").style.display = "block";
       }
-
-      const messageText = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
-      document.getElementById("message").innerText = messageText;
-      document.getElementById("message").style.display = "block";
-      document.getElementById("restartBtn").style.display = "block";
     }
 
     function ifEnter(event, action) {
