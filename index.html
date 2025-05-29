@@ -164,14 +164,15 @@
       document.getElementById("results").style.display = "block";
 
       if (congratsText !== "") {
+        document.getElementById("message").style.display = "none";
         document.getElementById("congrats").innerHTML = congratsText;
         document.getElementById("congrats").style.display = "block";
+        document.getElementById("restartBtn").style.display = "block";
       } else {
         document.getElementById("congrats").style.display = "none";
         const messageText = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
         document.getElementById("message").innerText = messageText;
         document.getElementById("message").style.display = "block";
-        document.getElementById("restartBtn").style.display = "block";
       }
     }
 
